@@ -13,8 +13,8 @@ class _CoinCardState extends State<CoinCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Colors.lightBlueAccent,
-        elevation: 5.0,
+        color: Colors.transparent,
+        elevation: 1.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -25,7 +25,7 @@ class _CoinCardState extends State<CoinCard> {
                     //TODO: Update the Text Widget with the live bitcoin data here.
                     '1 ${widget.criptoCoin} = ${widget.value} ${widget.currencyCoin}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
                     ),

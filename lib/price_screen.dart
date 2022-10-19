@@ -21,13 +21,18 @@ class _PriceScreenState extends State<PriceScreen> {
     List<DropdownMenuItem<String>> dropdownItems = [];
     for (String currency in currenciesList) {
       var newItem = DropdownMenuItem(
-        child: Text(currency),
+        child: Text(
+          currency,
+          style: TextStyle(fontSize: 20.0),
+        ),
         value: currency,
       );
       dropdownItems.add(newItem);
     }
 
     return DropdownButton<String>(
+      dropdownColor: Colors.blueGrey,
+      menuMaxHeight: 500.0,
       value: selectedCurrency,
       items: dropdownItems,
       onChanged: (value) {
@@ -46,7 +51,7 @@ class _PriceScreenState extends State<PriceScreen> {
     }
 
     return CupertinoPicker(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Colors.cyan,
       itemExtent: 32.0,
       onSelectedItemChanged: (selectedIndex) {
         print(selectedIndex);
@@ -73,32 +78,39 @@ class _PriceScreenState extends State<PriceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('🤑 Coin Ticker'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CoinCard('BTC', selectedCurrency, btcValue),
-                CoinCard('ETH', selectedCurrency, ethValue),
-                CoinCard('LTC', selectedCurrency, ltcValue)
-              ],
+      appBar: AppBar(title: Text('🤑 Coin Ticker')),
+      body: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Colors.lightBlue,
+          Colors.lightBlueAccent,
+          Colors.cyan,
+          Colors.cyanAccent
+        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CoinCard('BTC', selectedCurrency, btcValue),
+                  CoinCard('ETH', selectedCurrency, ethValue),
+                  CoinCard('LTC', selectedCurrency, ltcValue)
+                ],
+              ),
             ),
-          ),
-          Container(
-            height: 150.0,
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(bottom: 30.0),
-            color: Colors.lightBlue,
-            child: Platform.isIOS ? iOSPicker() : androidDropdown(),
-          ),
-        ],
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(10.0),
+              color: Colors.transparent,
+              child: Platform.isIOS ? iOSPicker() : androidDropdown(),
+            ),
+          ],
+        ),
       ),
     );
   }
